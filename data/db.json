@@ -1,0 +1,25 @@
+{
+    "details": [
+        {
+            "id":1,
+            "account Name": "first account",
+            "account Number" :"1234567890",
+            "Branch Name": "Head Office",
+            "Delivery Name": "Head Office"
+        },
+        {
+            "id":2,
+            "account Name": "second account",
+            "account Number" :"1328667890",
+            "Branch Name": "Allen Office",
+            "Delivery Name": "Allen Office"
+        },
+        {
+            "id":3,
+            "account Name": "first account",
+            "account Number" :"1234567890",
+            "Branch Name": "Apapa Office",
+            "Delivery Name": "Apapa Office"
+        }
+    ]
+}
