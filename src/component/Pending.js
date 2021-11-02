@@ -6,29 +6,7 @@ import faker from 'faker';
 import { ListItem } from '@material-ui/core';
 
 
-const identity = 1
-let DETAILS = [], STATUSES = ['Active', 'pending','Blocked'];
-for (let i = 0;i<12;i++){
-    DETAILS[i] = {
-        accNumber:Math.round(Math.random(2.5)*100000000),
-        accName:faker.name.findName(),
-        branchName:faker.name.findName(),
-        branchAddress:faker.name.findName(),
-        deliveryAddress:faker.name.findName(),
-        sortCode:Math.random(),
-        chequeType:1,
-        noOfLeaves:Math.random(),
-        noOfBooklets:Math.random(),
-        schemeCode:'pc002',
-        solId:parseInt('001'),
-        deliverySol:parseInt('001'),
-        rangeStart:1,
-        id : Math.random(),
-        rangeStop:50,
-        registerId:Math.random(),
-        userId:Math.floor(Math.random() * 10) + 1,
-    }
-}
+
 const Pending = () => {
     const [data, setData] = useState([]);
     
@@ -38,7 +16,7 @@ const Pending = () => {
       }, []);
 
   const getUsers = async () => {
-    const response = await axios.get('http://localhost:3000/details')
+    const response = await axios.get('http://localhost:3004/details')
         if(response.status === 200){
             setData(response.data)
             console.log(response.data)
@@ -80,6 +58,8 @@ console.log("data=>", data)
                    })}
                </tbody>
            </table>
+
+           
             
         </div>
     )
