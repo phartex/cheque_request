@@ -4,6 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Form from "./component/Form";
 import Pending from "./component/Pending";
+import Edit from "./component/Edit";
+import View from "./component/View";
+import Update from './component/Update';
 
 function App() {
   return (
@@ -15,6 +18,8 @@ function App() {
           <Switch>
               <Route path="/" exact component={Form}></Route>
               <Route path="/Pending" exact component={Pending}></Route>
+              <Route path="/update/:id" exact component={Update}></Route>
+              <Route path="/view/:id" exact component={View}></Route>
           </Switch>
         </BrowserRouter>
     </div>
