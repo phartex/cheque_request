@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useParams, Link} from "react-router-dom";
 import axios from "axios";
-import "./styles/View.css"
+import "./styles/View.css";
+
 
 const View = () => {
     const [user, setUser] = useState(null);
@@ -22,7 +23,7 @@ const View = () => {
                
             }
     
-      }
+    }
 
 
     return (

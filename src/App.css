@@ -1,6 +1,10 @@
+
 .App {
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -15,7 +19,11 @@
 .header{
   margin:0;
   padding: 0;
-  background-color: blue;
+  background-color: #253F66;
+}
+.header h3{
+  margin: 0;
+  
 }
 .App-header {
   background-color: #282c34;

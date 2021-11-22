@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import "./styles/Pending.css"
 import axios from 'axios'
 import faker from 'faker';
-import {Box,Button,TextField,Typography} from '@material-ui/core';
+import {Box,Button,Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Table,
@@ -19,8 +19,6 @@ import {
 import 'react-toastify/dist/ReactToastify.css'
 import Pagination from './Pagination';
 import Header from './Header';
-
-
 
 
 
@@ -79,43 +77,17 @@ const useStyles = makeStyles((theme) => ({
         height:'60vh',
         width:'30%',
     },
-    editModalContainer:{
-        background:'#fff',
-        height:'60vh',
-        width:'40%',
-    },
-    textContainer:{
-        display:'flex',
-        width:'60%',
-        flexDirection:'column',
-        marginTop:'2em',
-    },
-    gridContainer:{
-        display:'grid',
-        gridTemplateColumns:'1fr 1fr',
-        alignItems:'center',
-        padding:'0.5em 0',
-    },
-    formContainer:{
-        textAlign:'left',
-        paddingLeft:'2em',
-    },
 
 }))
 
-const Pending = () => {
+const Approved = () => {
     const [data, setData] = useState([]);
     const [user, setUser] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] =useState(5);
 
-    const [editView, setEditView] = useState(null)
-   
-    
-
     const {id} = useParams()
-    
-    const url = 'http://localhost:3004/details'
+
     
  
     useEffect(() => {
@@ -131,31 +103,25 @@ const Pending = () => {
     },[id]);
 
     const getSingleUser = async (id) => {
-        const response = await axios.get(`${url}/${id}`)
+        const response = await axios.get(`http://localhost:3004/details/${id}`)
             console.log('response', response)
             if(response.status === 200){
                 setUser(response.data)
+               
             }
-    }
     
-    const getEditUser = async (id) => {
-        const response = await axios.get(`${url}/${id}`)
-            console.log('response', response)
-            if(response.status === 200){
-                setEditView(response.data)
-            }
     }
 
     const getUsers = async () => {
-    const response = await axios.get(`${url}`)
+    const response = await axios.get('http://localhost:3004/details')
         if(response.status === 200){
             setData(response.data)
-            // console.log(response.data)
+            console.log(response.data)
         }
   }
   const onDeleteUser = async (id) =>{
       if(window.confirm("Are you sure that you wanted to delete that")){
-          const response = await axios.delete(`${url}/${id}`);
+          const response = await axios.delete(`http://localhost:3004/details/${id}`);
           if(response.status === 200) {
             toast.success('successfully deleted')
             //   window.alert('successfully deleted')
@@ -163,9 +129,6 @@ const Pending = () => {
           }
       }
   }
-  const handleInputChange = (e) => {
-    console.log('man')
-}
 
   toast.configure()
   const notify = () =>{
@@ -177,7 +140,6 @@ const Pending = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
-
 
   const classes = useStyles();
     return (
@@ -192,12 +154,9 @@ const Pending = () => {
                     <TableCell className={classes.tableHeaderCell}>Account Number</TableCell>
                     <TableCell className={classes.tableHeaderCell}>Branch Name</TableCell>
                     <TableCell className={classes.tableHeaderCell}>Branch Address</TableCell>
-
-                    <TableCell className={classes.tableHeaderCell}>Number of Leaves</TableCell>
-                    <TableCell className={classes.tableHeaderCell}>Numberof Booklets</TableCell>
-
                     <TableCell className={classes.tableHeaderCell}>Status</TableCell>
-                    <TableCell className={classes.tableHeaderCell}>Action</TableCell>
+                    {/* <TableCell className={classes.tableHeaderCell}>view</TableCell> */}
+
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -210,30 +169,17 @@ const Pending = () => {
                             <TableCell>{item.accNumber}</TableCell>
                             <TableCell>{item.branchName}</TableCell>
                             <TableCell>{item.branchAddress}</TableCell>
-
-                            <TableCell>{item.noOfLeaves}</TableCell>
-                            <TableCell>{item.noOfBooklets}</TableCell>
-                          
-                            <TableCell>pending</TableCell>
-                            <TableCell classes={classes.btnContainer}>
-                            {/* <Link to={`/update/${item.id}`}> */}
-                           
-                            {/* </Link> */}
-                            <button className={classes.btnView}
-                            onClick={() =>{ 
-                               
-                                getEditUser(item.id)
-                            }}
-                            >Edit</button>
-
+                            <TableCell>approved</TableCell>
+                            {/* <TableCell classes={classes.btnContainer}>
+                            <Link to={`/update/${item.id}`}><button className={classes.btnView}>Edit</button></Link>
                             <button className={classes.btnView} onClick= {() => onDeleteUser(item.id)}>Delete</button>
                             <button className={classes.btnView}
                                 onClick={()=>{
-                                    // setUser(true)
+                                    setUser(true)
                                     getSingleUser(item.id)
                                 }}
                             >view</button>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell></TableCell>
                         </TableRow>
                     )
@@ -241,17 +187,15 @@ const Pending = () => {
 
             </TableBody>
                 
-               
+
 
             </Table>
-            
         </TableContainer>
-        <Box className={`${user ? classes.showModal : classes.modalOverlay }`}>
-            {user && 
-            <div className={classes.modalContainer}>
-                <h1>View user details</h1>
+                <Box className={`${user ? classes.showModal : classes.modalOverlay }`}>
+                    {user && 
+                        <div className={classes.modalContainer}>
+                        <h1>View user details</h1>
                         <div>
-                            
                             <strong>Account Name: {id}</strong>
                             <br/>
                             <span>{user && user.accName}</span>
@@ -278,48 +222,15 @@ const Pending = () => {
                         >close</Button>
                         </div>
                     }
-            </Box>
-            
-            <Box className={`${editView ? classes.showModal : classes.modalOverlay }`}>
-                {
-                    editView && 
-                    <Box className={classes.editModalContainer}>
-                        <Box className={classes.textContainer}>
-                            <form className={classes.formContainer}>
-                            <p>Account Name: <input value={editView?.accName} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Account Number: <input value={editView?.accNumber} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Branch Address: <input value={editView?.branchAddress} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Branch Name: <input value={editView?.branchName} onChange={(e) => setEditView(e.target.value)}/></p>
-                            {/* <p>Delivery Address: <input value={editView?.noOfBooklets} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Sol id: <input value={editView?.noOfBooklets} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Sort Code: <input value={editView?.noOfBooklets} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Scheme Code: <input value={editView?.noOfBooklets} onChange={(e) => setEditView(e.target.value)}/></p> */}
-
-                            <p>Number of leaves: <input value={editView?.noOfLeaves} onChange={(e) => setEditView(e.target.value)}/></p>
-                            <p>Number of Booklets: <input value={editView?.noOfBooklets} onChange={(e) => setEditView(e.target.value)}/></p>
-                            
-                            
-                           </form>
-                        </Box>
-               
-                        <div>
-                        <Button className={classes.btnClose} onClick = {()=> {
-                            setEditView(false)
-                            console.log(editView)
-                        }}  variant='contained'>update</Button>
-                        </div>
-                    </Box>
-                }
-            </Box>
+                </Box>
                 <Pagination postsPerPage={postsPerPage} totalPosts={data.length} paginate={paginate}/>
-                <p>{data.length}</p>
         </Box>
 
     )
 }
 
-export default Pending
+export default Approved
 
-// https://fakestoreapi.com/products
+
 
 

@@ -1,25 +1,27 @@
 {
-    "details": [
-        {
-            "id":1,
-            "accName": "first account",
-            "accNumber" :"1234567890",
-            "branchName": "Head Office",
-            "branchAddress": "Head Office"
-        },
-        {
-            "id":2,
-            "accName": "second account",
-            "accNumber" :"1328667890",
-            "branchName": "Allen Office",
-            "branchAddress": "Allen Office"
-        },
-        {
-            "id":3,
-            "accName": "first account",
-            "accNumber" :"1234567890",
-            "branchName": "Apapa Office",
-            "branchAddress": "Apapa Office"
-        }
-    ]
+  "details": [
+    {
+      "id": 1,
+      "accName": "first account",
+      "accNumber": "1234567890",
+      "branchName": "Head Office",
+      "branchAddress": "Head Office"
+    },
+    {
+      "id": 2,
+      "accName": "first account",
+      "accNumber": "1234567890",
+      "branchName": "Apapa Office",
+      "branchAddress": "Apapa Office"
+    },
+    {
+      "accName": "6666666666",
+      "accNumber": "55555",
+      "branchAddress": "66666666666666666",
+      "branchName": "666666666",
+      "noOfLeaves": "",
+      "noOfBooklets": "",
+      "id": 3
+    }
+  ]
 }
